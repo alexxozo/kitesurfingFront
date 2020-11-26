@@ -212,6 +212,7 @@
 
                 for (let i = 0; i < data.length; i++) {
                     document.querySelector('#spot-list').innerHTML += Mustache.render(template, {
+                        id: data[i]._id,
                         name: data[i].name,
                         location: data[i].locationCatalonianCoast,
                         temperature: data[i].averageAirTemp,

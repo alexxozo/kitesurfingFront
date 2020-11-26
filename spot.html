@@ -78,67 +78,7 @@
                 <div class="row">
                     <h2 class="heading-title">Experiences</h2>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
-                        <div href="#"><img src="images/place-6.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
-                                           class="img-responsive">
-                            <div class="desc">
-                                <span></span>
-                                <h3><strong>Incredible!</strong></h3>
-                                <span>@berendgort</span>
-                                <div style="display: flex; flex-direction: row; margin-bottom: 25px;">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-
-                                <a class="btn btn-primary btn-outline" href="#">See experience<i
-                                        class="icon-arrow-right22"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
-                        <div href="#"><img src="images/place-6.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
-                                           class="img-responsive">
-                            <div class="desc">
-                                <span></span>
-                                <h3><strong>Incredible!</strong></h3>
-                                <span>@johndoe</span>
-                                <div style="display: flex; flex-direction: row; margin-bottom: 25px;">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-
-                                <a class="btn btn-primary btn-outline" href="#">See experience<i
-                                        class="icon-arrow-right22"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
-                        <div href="#"><img src="images/place-6.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
-                                           class="img-responsive">
-                            <div class="desc">
-                                <span></span>
-                                <h3><strong>Incredible!</strong></h3>
-                                <span>@johndoe</span>
-                                <div style="display: flex; flex-direction: row; margin-bottom: 25px;">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-
-                                <a class="btn btn-primary btn-outline" href="#">See experience<i
-                                        class="icon-arrow-right22"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" id="experience-list">
                 </div>
             </div>
         </div>
@@ -368,6 +308,7 @@
                         })
                     });
 
+                    // Spots
 
                     fetch('templates/spot.html')
                         .then((response) => response.text())
@@ -385,22 +326,36 @@
                             });
                         });
 
-                    // experiences
-                    // fetch('templates/spot.html')
-                    //     .then((response) => response.text())
-                    //     .then((template) => {
-                    //         service.fetchAllRelatedSpots(id).then((data) => {
-                    //             for (let i = 0; i < 3; i++) {
-                    //                 document.querySelector('#spot-list').innerHTML += Mustache.render(template, {
-                    //                     id: data[i]._id,
-                    //                     name: data[i].name,
-                    //                     location: data[i].locationCatalonianCoast,
-                    //                     temperature: data[i].averageAirTemp,
-                    //                     imageUrl: data[i].imageUrls[0]
-                    //                 });
-                    //             }
-                    //         });
-                    //     });
+
+                    // Experiences
+
+                    fetch('templates/experiencebox.html')
+                         .then((response) => response.text())
+                         .then((template) => {
+                             service.fetchAllExperiences().then((data) => {
+                                 console.log(data)
+                                 let ratingArrayPos = [];
+                                 let ratingArrayNeg = [];
+                                 for (let i = 0; i < data[i].rating-1; i++) {
+                                    ratingArrayPos.push(true);
+                                 }
+                                 for (let i = 0; i < 6 - data[i].rating; i++) {
+                                    ratingArrayNeg.push(false);
+                                 }
+                                 for (let i = 0; i < 3; i++) {
+                                     document.querySelector('#experience-list').innerHTML += Mustache.render(template, {
+                                         author: data[i].author,
+                                         spotid: data[i].spot_id,
+                                         date: data[i].date,
+                                         one_word: data[i].one_word,
+                                         comment: data[i].comment,
+                                         ratingPos: ratingArrayPos,
+                                         ratingNeg: ratingArrayNeg,
+                                         imageUrl: data[i].imageUrls[0],
+                                     });
+                                 }
+                             });
+                         });
                 });
         });
 

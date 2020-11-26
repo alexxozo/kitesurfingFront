@@ -21,6 +21,10 @@ export function getParameterByName(name, url = window.location.href) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+export function searchSpots(temperature, location, windSpeed, windDirection) {
+    return fetch(`${apiUrl}/api/search?temperature=${temperature}&location=${location}&windSpeed=${windSpeed}&windDirection=${windDirection}`)
+}
+
 export function fetchAllSpots() {
     return fetch(`${apiUrl}/api/spots`)
         .then(response => response.json());

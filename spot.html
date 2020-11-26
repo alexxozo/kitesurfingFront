@@ -330,32 +330,32 @@
                     // Experiences
 
                     fetch('templates/experiencebox.html')
-                         .then((response) => response.text())
-                         .then((template) => {
-                             service.fetchAllExperiences().then((data) => {
-                                 console.log(data)
-                                 let ratingArrayPos = [];
-                                 let ratingArrayNeg = [];
-                                 for (let i = 0; i < data[i].rating-1; i++) {
+                        .then((response) => response.text())
+                        .then((template) => {
+                            service.fetchAllExperiences().then((data) => {
+                                console.log(data)
+                                let ratingArrayPos = [];
+                                let ratingArrayNeg = [];
+                                for (let i = 0; i < data[i].rating - 1; i++) {
                                     ratingArrayPos.push(true);
-                                 }
-                                 for (let i = 0; i < 6 - data[i].rating; i++) {
+                                }
+                                for (let i = 0; i < 6 - data[i].rating; i++) {
                                     ratingArrayNeg.push(false);
-                                 }
-                                 for (let i = 0; i < 3; i++) {
-                                     document.querySelector('#experience-list').innerHTML += Mustache.render(template, {
-                                         author: data[i].author,
-                                         spotid: data[i].spot_id,
-                                         date: data[i].date,
-                                         one_word: data[i].one_word,
-                                         comment: data[i].comment,
-                                         ratingPos: ratingArrayPos,
-                                         ratingNeg: ratingArrayNeg,
-                                         imageUrl: data[i].imageUrls[0],
-                                     });
-                                 }
-                             });
-                         });
+                                }
+                                for (let i = 0; i < 3; i++) {
+                                    document.querySelector('#experience-list').innerHTML += Mustache.render(template, {
+                                        author: data[i].author,
+                                        spotid: data[i].spot_id,
+                                        date: data[i].date,
+                                        one_word: data[i].one_word,
+                                        comment: data[i].comment,
+                                        ratingPos: ratingArrayPos,
+                                        ratingNeg: ratingArrayNeg,
+                                        imageUrl: data[i].imageUrls[0],
+                                    });
+                                }
+                            });
+                        });
                 });
         });
 

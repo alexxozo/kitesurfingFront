@@ -53,93 +53,6 @@
         </header>
 
 
-        <div class="fh5co-hero">
-            <div class="fh5co-overlay"></div>
-            <div class="fh5co-cover" data-stellar-background-ratio="0.5"
-                 style="background-image: url(images/kite_bg.jpg);">
-                <div class="desc">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-5 col-md-5">
-                                <div class="tabulation animate-box">
-                                    <form action="">
-                                        <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane active" id="flights">
-                                                <div class="row">
-                                                    <div class="col-sm-12 mt">
-                                                        <section>
-                                                            <label for="class">Temperature (celsius):</label>
-                                                            <select class="cs-select cs-skin-border">
-                                                                <option value="economy">0 - 10</option>
-                                                                <option value="first">10 - 15</option>
-                                                                <option value="business">15 - 20</option>
-                                                                <option value="business">20 - 25</option>
-                                                                <option value="business">25 - 30</option>
-                                                                <option value="business">30+</option>
-                                                            </select>
-                                                        </section>
-                                                    </div>
-                                                    <div class="col-sm-12 mt">
-                                                        <section>
-                                                            <label for="class">Location:</label>
-                                                            <select class="cs-select cs-skin-border">
-                                                                <option value="economy">North Coast</option>
-                                                                <option value="first">Middle Coast</option>
-                                                                <option value="business">South Coast</option>
-                                                            </select>
-                                                        </section>
-                                                    </div>
-                                                    <div class="col-xxs-12 col-xs-6 mt">
-                                                        <section>
-                                                            <label for="class">Wind speed (knots):</label>
-                                                            <select class="cs-select cs-skin-border">
-                                                                <option value="1">0 - 10</option>
-                                                                <option value="2">10 - 20</option>
-                                                                <option value="3">20 -30</option>
-                                                            </select>
-                                                        </section>
-                                                    </div>
-                                                    <div class="col-xxs-12 col-xs-6 mt">
-                                                        <section>
-                                                            <label for="class">Wind direction:</label>
-                                                            <select class="cs-select cs-skin-border">
-                                                                <option value="1">North</option>
-                                                                <option value="1">North-East</option>
-                                                                <option value="1">North-West</option>
-                                                                <option value="1">East</option>
-                                                                <option value="1">South</option>
-                                                                <option value="1">South-East</option>
-                                                                <option value="1">South-West</option>
-                                                                <option value="1">West</option>
-                                                            </select>
-                                                        </section>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <input type="submit" class="btn btn-primary btn-block"
-                                                               value="Search Place">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    s
-                                </div>
-                            </div>
-                            <div class="desc2 animate-box">
-                                <div class="col-sm-7 col-sm-push-1 col-md-7 col-md-push-1">
-                                    <h2>Find the perfect kiting place in Cataluna</h2>
-                                    <!--                                    <h3>* Catalunya places only</h3>-->
-                                    <!--                                    <span class="price">$599</span>-->
-                                    <!-- <p><a class="btn btn-primary btn-lg" href="#">Get Started</a></p> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
         <div id="fh5co-tours" class="fh5co-section-gray">
             <div class="container">
                 <div class="row">
@@ -207,19 +120,21 @@
     fetch('/templates/spot.html')
         .then((response) => response.text())
         .then((template) => {
-            service.fetchAllSpots().then((data) => {
-                let allSpots = false;
+            service.searchSpots(service.getParameterByName("temperature"), service.getParameterByName("location"), service.getParameterByName("windSpeed"), service.getParameterByName("windDirection"))
+                .then(data => data.json())
+                .then((data) => {
+                    let allSpots = false;
 
-                for (let i = 0; i < data.length; i++) {
-                    document.querySelector('#spot-list').innerHTML += Mustache.render(template, {
-                        id: data[i]._id,
-                        name: data[i].name,
-                        location: data[i].locationCatalonianCoast,
-                        temperature: data[i].averageAirTemp,
-                        imageUrl: data[i].imageUrls[1]
-                    });
-                }
-            })
+                    for (let i = 0; i < data.length; i++) {
+                        document.querySelector('#spot-list').innerHTML += Mustache.render(template, {
+                            id: data[i]._id,
+                            name: data[i].name,
+                            location: data[i].locationCatalonianCoast,
+                            temperature: data[i].averageAirTemp,
+                            imageUrl: data[i].imageUrls[1]
+                        });
+                    }
+                })
         });
 
 </script>

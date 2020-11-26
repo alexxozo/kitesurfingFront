@@ -1,0 +1,81 @@
+<div class="col-md-12">
+    <h1 class="heading-title">{{name}} Spot</h1>
+</div>
+<div class="col-md-6">
+    <div class="row">
+        <div class="col-md-12">
+            <p>{{shortDescription}}</p>
+            <p>Based on our research the best time of the year to go in this spot is: {{whenToGo}}
+            </p>
+        </div>
+        <div class="col-md-12">
+            <h3>Know before going:</h3>
+            <h4>Location: 🗺️ {{location}} Catalunia</h4>
+            <h4>Air temperature: 🌡️ {{air.temperature}} °C</h4>
+            <h4>Waves direction: {{waves.direction}}</h4>
+            <h4>How clean is the water: 🌊 {{waves.clean}}</h4>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="fotorama" data-auto="false" data-width="100%" data-height="350" data-minwidth="100%" data-fit="cover"
+         data-trackpad="false" data-nav="false">
+    </div>
+    <!--    <img class="img-responsive" src="{{imageUrl}}" alt="travel">-->
+    <a href="#" class="flight-book">
+        <div class="plane-name">
+            <span class="p-flight">Air Temperature (celsius)</span>
+        </div>
+        <div class="desc">
+            <div class="left">
+            </div>
+            <div class="right">
+                <span class="price">
+                    <i class="icon-arrow-up22"></i>
+                    {{air.temperature}} °C
+                </span>
+            </div>
+        </div>
+    </a>
+    <a href="#" class="flight-book">
+        <div class="plane-name">
+            <span class="p-flight">Wind Average Speed (knots)</span>
+        </div>
+        <div class="desc">
+            <div class="left">
+            </div>
+            <div class="right">
+                <span class="price">
+                    <i class="icon-arrow-down22"></i>
+                    {{wind.knots}} kt
+                </span>
+            </div>
+        </div>
+    </a>
+    <a href="#" class="flight-book">
+        <div class="plane-name">
+            <span class="p-flight">Wind probability</span>
+        </div>
+        <div class="desc">
+            <div class="left">
+            </div>
+            <div class="right">
+                <span class="price">
+                    <i class="icon-arrow-down22"></i>
+                    {{wind.prob}} %
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+<div class="row">
+    <div class="col-md-6" style="padding-top: 35px;">
+        <canvas id="air-temperature-chart"></canvas>
+    </div>
+    <div class="col-md-6" style="padding-top: 35px;">
+        <canvas id="water-temperature-chart"></canvas>
+    </div>
+    <div class="col-md-12">
+        <div id="map" class="map"></div>
+    </div>
+</div>
